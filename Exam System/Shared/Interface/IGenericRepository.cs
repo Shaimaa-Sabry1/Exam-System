@@ -1,6 +1,6 @@
 ﻿namespace Exam_System.Shared.Interface
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<T> where T : class
     {
         Task<T> AddAsync<T>(T entity);
         Task<T> UpdateAsync<T>(T entity) ;
