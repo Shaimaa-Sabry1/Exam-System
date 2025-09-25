@@ -2,7 +2,7 @@
 {
     public class ChoiceDto
     {
-        public Guid ChoiceId { get; set; }
+        public int ChoiceId { get; set; }
         public string Text { get; set; }
     }
 }

@@ -6,9 +6,9 @@ namespace Exam_System.Feature.Answers.Model
 {
     public class Answer
     {
-        public Guid AnswerId { get; set; }
-        public Guid ExamId { get; set; }
-        public Guid UserId { get; set; }
+        public int AnswerId { get; set; }
+        public int ExamId { get; set; }
+        public int UserId { get; set; }
         public DateTime SubmittedAt { get; set; } = DateTime.Now;
         public int Score { get; set; }
 

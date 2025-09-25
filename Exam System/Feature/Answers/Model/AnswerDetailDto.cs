@@ -2,9 +2,9 @@
 {
     public class AnswerDetailDto
     {
-      public  Guid AnswerDetailId { get; set; }
-      public  Guid QuestionId { get; set; }
-      public  Guid ChoiceId { get; set; }
+      public  int AnswerDetailId { get; set; }
+      public  int QuestionId { get; set; }
+      public  int ChoiceId { get; set; }
           
     }
 }

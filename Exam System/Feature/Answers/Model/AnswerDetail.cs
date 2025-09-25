@@ -4,10 +4,10 @@ namespace Exam_System.Feature.Answers.Model
 {
     public class AnswerDetail
     {
-        public Guid AnswerDetailId { get; set; }
-        public Guid QuestionId { get; set; }
-        public Guid AnswerId { get; set; }
-        public Guid ChoiceId { get; set; }
+        public int AnswerDetailId { get; set; }
+        public int QuestionId { get; set; }
+        public int AnswerId { get; set; }
+        public int ChoiceId { get; set; }
 
         public  Answer Answer { get; set; }
         public Question Question { get; set; }
