@@ -1,12 +1,12 @@
 ﻿namespace Exam_System.Shared.Interface
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T>
     {
-        Task<T> AddAsync<T>(T entity) where T : class;
-        Task<T> UpdateAsync<T>(T entity) where T : class;
-        Task DeleteAsync<T>(T entity) where T : class;
-        Task<T?> GetByIdAsync<T>(Guid id) where T : class;
-        Task<IEnumerable<T>> GetAllAsync<T>() where T : class;
+        Task<T> AddAsync<T>(T entity);
+        Task<T> UpdateAsync<T>(T entity) ;
+        Task DeleteAsync<T>(T entity) ;
+        Task<T?> GetByIdAsync<T>(Guid id);
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
     }
 }
