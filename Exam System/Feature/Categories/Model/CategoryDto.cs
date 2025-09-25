@@ -1,4 +1,4 @@
-﻿namespace Exam_System.Feature.Category.Model
+﻿namespace Exam_System.Feature.Categories.Model
 {
     public class CategoryDto
     {
