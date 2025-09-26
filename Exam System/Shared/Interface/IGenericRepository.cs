@@ -8,5 +8,6 @@
         Task<T?> GetByIdAsync<T>(Guid id);
         Task<IEnumerable<T>> GetAllAsync<T>();
 
+
     }
 }

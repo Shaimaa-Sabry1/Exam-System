@@ -2,7 +2,7 @@
 {
     public class ExamDto
     {
-        public Guid ExamId { get; set; }
+        public int ExamId { get; set; }
         public string Title { get; set; }
         public string? Icon { get; set; }
         public int DurationInMinutes { get; set; }
