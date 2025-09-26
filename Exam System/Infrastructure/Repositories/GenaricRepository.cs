@@ -1,15 +1,27 @@
-﻿using Exam_System.Shared.Interface;
+﻿using Exam_System.Infrastructure.Persistance.Data;
+using Exam_System.Shared.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace Exam_System.Infrastructure.Repositories
 {
     public class GenaricRepository<T> : IGenericRepository<T> where T : class
     {
-        public Task<T1> AddAsync<T1>(T1 entity)
+        private readonly ExamDbcontext _dbcontext;
+        private readonly DbSet<T> _dbSet;
+
+        public GenaricRepository(ExamDbcontext dbcontext)
         {
-            throw new NotImplementedException();
+            this._dbcontext = dbcontext;
+            this._dbSet = dbcontext.Set<T>();
         }
 
-        public Task DeleteAsync<T1>(T1 entity)
+        public async Task<T> AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+            return entity;
+        }
+
+        public Task DeleteAsync(T entity)
         {
             throw new NotImplementedException();
         }
@@ -19,12 +31,12 @@ namespace Exam_System.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<T1> GetByIdAsync<T1>(Guid id)
+        public Task<T?> GetByIdAsync(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<T1> UpdateAsync<T1>(T1 entity)
+        public Task<T> UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }
