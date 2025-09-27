@@ -1,5 +1,5 @@
-﻿using Exam_System.Feature.Categories.Model;
-using Exam_System.Feature.Exams.Model;
+﻿using Exam_System.Domain.Entities;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

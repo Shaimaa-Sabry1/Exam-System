@@ -31,14 +31,15 @@ namespace Exam_System.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<T?> GetByIdAsync(Guid id)
+        public  async Task<T?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(id).AsTask();
         }
 
         public Task<T> UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbcontext.Update(entity);
+            return Task.FromResult(entity);
         }
     }
 }
