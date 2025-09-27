@@ -1,4 +1,4 @@
-﻿using Exam_System.Feature.Answers.Model;
+﻿using Exam_System.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
