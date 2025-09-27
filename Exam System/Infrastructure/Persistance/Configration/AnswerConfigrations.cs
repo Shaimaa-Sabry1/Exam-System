@@ -8,7 +8,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
     {
         public void Configure(EntityTypeBuilder<Answer> builder)
         {
-            builder.HasKey(a => a.AnswerId);
+            builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Score)
                    .IsRequired();

@@ -6,10 +6,10 @@ namespace Exam_System.Infrastructure.Repositories
 {
     public class GenaricRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly ExamDbcontext _dbcontext;
+        private readonly ExamDbContext _dbcontext;
         private readonly DbSet<T> _dbSet;
 
-        public GenaricRepository(ExamDbcontext dbcontext)
+        public GenaricRepository(ExamDbContext dbcontext)
         {
             this._dbcontext = dbcontext;
             this._dbSet = dbcontext.Set<T>();

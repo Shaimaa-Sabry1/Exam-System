@@ -2,7 +2,7 @@
 {
     public class AnswerDetail
     {
-        public int AnswerDetailId { get; set; }
+        public int Id { get; set; }
         public int QuestionId { get; set; }
         public int AnswerId { get; set; }
         public int ChoiceId { get; set; }

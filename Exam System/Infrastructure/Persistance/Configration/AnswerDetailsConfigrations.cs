@@ -8,7 +8,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
     {
         public void Configure(EntityTypeBuilder<AnswerDetail> builder)
         {
-            builder.HasKey(ad => ad.AnswerDetailId);
+            builder.HasKey(ad => ad.Id);
 
             // Each AnswerDetail → Question
             builder.HasOne(ad => ad.Question)

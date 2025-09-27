@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exam_System.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20250925163606_Intialcreate")]
-    partial class Intialcreate
+    [Migration("20250927220509_Add_Role_And_UserClaims")]
+    partial class Add_Role_And_UserClaims
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,13 @@ namespace Exam_System.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Exam_System.Feature.Answers.Model.Answer", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
                 {
-                    b.Property<int>("AnswerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ExamId")
                         .HasColumnType("int");
@@ -45,7 +45,7 @@ namespace Exam_System.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("AnswerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ExamId");
 
@@ -54,13 +54,13 @@ namespace Exam_System.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Answers.Model.AnswerDetail", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.AnswerDetail", b =>
                 {
-                    b.Property<int>("AnswerDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerDetailId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AnswerId")
                         .HasColumnType("int");
@@ -71,7 +71,7 @@ namespace Exam_System.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.HasKey("AnswerDetailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
 
@@ -82,13 +82,13 @@ namespace Exam_System.Migrations
                     b.ToTable("AnswerDetail");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Categories.Model.Category", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -102,18 +102,44 @@ namespace Exam_System.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Exams.Model.Exam", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Choice", b =>
                 {
-                    b.Property<int>("ExamId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Choices");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.Exam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -138,46 +164,20 @@ namespace Exam_System.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.HasKey("ExamId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Exams");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Questions.Model.Choice", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Question", b =>
                 {
-                    b.Property<int>("ChoiceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChoiceId"));
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.HasKey("ChoiceId");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Choices");
-                });
-
-            modelBuilder.Entity("Exam_System.Feature.Questions.Model.Question", b =>
-                {
-                    b.Property<int>("QuestionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -195,20 +195,37 @@ namespace Exam_System.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("QuestionId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ExamId");
 
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Users.Model.User", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Role", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -230,27 +247,58 @@ namespace Exam_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfilePictureUrl")
+                    b.Property<string>("ProfileImageUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Role")
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
-                    b.ToTable("users");
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Answers.Model.Answer", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.UserClaim", b =>
                 {
-                    b.HasOne("Exam_System.Feature.Exams.Model.Exam", "Exam")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserClaims");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
                         .WithMany("Answers")
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Exam_System.Feature.Users.Model.User", "User")
+                    b.HasOne("Exam_System.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -261,21 +309,21 @@ namespace Exam_System.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Answers.Model.AnswerDetail", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.AnswerDetail", b =>
                 {
-                    b.HasOne("Exam_System.Feature.Answers.Model.Answer", "Answer")
+                    b.HasOne("Exam_System.Domain.Entities.Answer", "Answer")
                         .WithMany("Details")
                         .HasForeignKey("AnswerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Exam_System.Feature.Questions.Model.Choice", "Choice")
+                    b.HasOne("Exam_System.Domain.Entities.Choice", "Choice")
                         .WithMany()
                         .HasForeignKey("ChoiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Exam_System.Feature.Questions.Model.Question", "Question")
+                    b.HasOne("Exam_System.Domain.Entities.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -288,20 +336,9 @@ namespace Exam_System.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Exams.Model.Exam", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Choice", b =>
                 {
-                    b.HasOne("Exam_System.Feature.Categories.Model.Category", "Category")
-                        .WithMany("Exam")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Exam_System.Feature.Questions.Model.Choice", b =>
-                {
-                    b.HasOne("Exam_System.Feature.Questions.Model.Question", "Question")
+                    b.HasOne("Exam_System.Domain.Entities.Question", "Question")
                         .WithMany("Choices")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -310,9 +347,20 @@ namespace Exam_System.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Questions.Model.Question", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Exam", b =>
                 {
-                    b.HasOne("Exam_System.Feature.Exams.Model.Exam", "Exam")
+                    b.HasOne("Exam_System.Domain.Entities.Category", "Category")
+                        .WithMany("Exam")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.Question", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
                         .WithMany("Questions")
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -321,26 +369,53 @@ namespace Exam_System.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Answers.Model.Answer", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.User", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.UserClaim", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.User", "User")
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
                 {
                     b.Navigation("Details");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Categories.Model.Category", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Exams.Model.Exam", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Exam", b =>
                 {
                     b.Navigation("Answers");
 
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("Exam_System.Feature.Questions.Model.Question", b =>
+            modelBuilder.Entity("Exam_System.Domain.Entities.Question", b =>
                 {
                     b.Navigation("Choices");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Claims");
                 });
 #pragma warning restore 612, 618
         }

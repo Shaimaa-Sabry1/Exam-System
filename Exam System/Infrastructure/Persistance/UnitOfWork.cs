@@ -6,12 +6,12 @@ namespace Exam_System.Infrastructure.Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly ExamDbcontext _context;
+        private readonly ExamDbContext _context;
 
         public ICategoryRepository Categories { get; }
         
 
-        public UnitOfWork(ExamDbcontext context,ICategoryRepository categoryRepository)
+        public UnitOfWork(ExamDbContext context,ICategoryRepository categoryRepository)
         {
           
             this._context = context;
