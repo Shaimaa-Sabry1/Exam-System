@@ -8,7 +8,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
     {
         public void Configure(EntityTypeBuilder<Exam> builder)
         {
-            builder.HasKey(e => e.ExamId);
+            builder.HasKey(e => e.Id);
             builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
             builder.Property(e => e.DurationInMinutes).IsRequired();
             builder.HasMany(e => e.Answers)

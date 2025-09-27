@@ -9,7 +9,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.HasKey(c => c.CategoryId);
+            builder.HasKey(c => c.Id);
 
             builder.Property(c => c.Title)
                    .IsRequired()

@@ -6,7 +6,7 @@ namespace Exam_System.Infrastructure.Repositories
 {
     public class CategoryRepository:GenaricRepository<Category>, ICategoryRepository
     {
-        public CategoryRepository(ExamDbcontext context) : base(context)
+        public CategoryRepository(ExamDbContext context) : base(context)
         {
         }
     }

@@ -2,7 +2,7 @@
 {
     public class Category
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string? Icon { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Exam_System.Migrations
 {
-    [DbContext(typeof(ExamDbcontext))]
+    [DbContext(typeof(ExamDbContext))]
     [Migration("20250926083840_CreateDB")]
     partial class CreateDB
     {

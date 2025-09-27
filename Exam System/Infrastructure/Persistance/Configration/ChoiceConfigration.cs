@@ -11,7 +11,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
 
         public void Configure(EntityTypeBuilder<Choice> builder)
         {
-            builder.HasKey(c => c.ChoiceId);
+            builder.HasKey(c => c.Id);
 
             builder.Property(c => c.Text)
                    .IsRequired()

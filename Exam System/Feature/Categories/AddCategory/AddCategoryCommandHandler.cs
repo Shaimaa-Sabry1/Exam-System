@@ -25,7 +25,7 @@ namespace Exam_System.Feature.Categories.AddCategory
             };
              await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveChangesAsync();
-            return category.CategoryId;
+            return category.Id;
         }
     }
 }
