@@ -3,6 +3,7 @@ using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddDbContext<ExamDbcontext>(options =>  options.UseSqlServer( builder.Configuration.GetConnectionString("DefaultConnection"))
  );
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepository<>));

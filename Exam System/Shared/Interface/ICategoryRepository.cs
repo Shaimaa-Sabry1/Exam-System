@@ -1,4 +1,4 @@
-﻿using Exam_System.Feature.Categories.Model;
+﻿using Exam_System.Domain.Entities;
 
 namespace Exam_System.Shared.Interface
 {

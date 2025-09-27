@@ -1,8 +1,4 @@
-﻿using Exam_System.Feature.Answers.Model;
-using Exam_System.Feature.Categories.Model;
-using Exam_System.Feature.Exams.Model;
-using Exam_System.Feature.Questions.Model;
-using Exam_System.Feature.Users.Model;
+﻿using Exam_System.Domain.Entities;
 using Exam_System.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
