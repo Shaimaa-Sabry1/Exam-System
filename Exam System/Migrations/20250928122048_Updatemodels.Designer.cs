@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exam_System.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    [Migration("20250927220509_Add_Role_And_UserClaims")]
-    partial class Add_Role_And_UserClaims
+    [Migration("20250928122048_Updatemodels")]
+    partial class Updatemodels
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

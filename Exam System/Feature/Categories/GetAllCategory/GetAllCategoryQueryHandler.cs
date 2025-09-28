@@ -7,9 +7,9 @@ namespace Exam_System.Feature.Categories.GetAllCategory
 {
     public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, object>
     {
-        private readonly ExamDbcontext _dbContext;
+        private readonly ExamDbContext _dbContext;
 
-        public GetAllCategoryQueryHandler(ExamDbcontext dbContext)
+        public GetAllCategoryQueryHandler(ExamDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
@@ -21,7 +21,7 @@ namespace Exam_System.Feature.Categories.GetAllCategory
                 .Take(request.PageSize)
                 .Select(c => new CategoryDto
                 {
-                    CategoryId = c.CategoryId,
+                    CategoryId = c.Id,
                     Title = c.Title,
                     Icon = c.Icon,
                 })

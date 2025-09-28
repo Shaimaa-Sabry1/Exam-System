@@ -1,9 +1,13 @@
+//using Exam_System.Feature.Exams.Commands.Validations;
+using FluentValidation; // Add this using directive at the top of the file
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared.Interface;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Exam_System.Feature.Exams.Commands.Validations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +23,10 @@ builder.Services.AddDbContext<ExamDbContext>(options =>  options.UseSqlServer( b
  );
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepository<>));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+ builder.Services.AddValidatorsFromAssembly(typeof(CreateExamCommandValidator).Assembly);
+
 
 
 builder.Services.AddMediatR(typeof(Program).Assembly);

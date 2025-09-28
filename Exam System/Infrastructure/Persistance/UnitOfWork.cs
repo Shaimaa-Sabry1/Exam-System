@@ -9,15 +9,19 @@ namespace Exam_System.Infrastructure.Persistance
         private readonly ExamDbContext _context;
 
         public ICategoryRepository Categories { get; }
-        
 
-        public UnitOfWork(ExamDbContext context,ICategoryRepository categoryRepository)
+        public IExamRepository Exam { get; }
+
+        public UnitOfWork(ExamDbContext context, ICategoryRepository categoryRepository,IExamRepository exam)
         {
-          
+
             this._context = context;
             Categories = categoryRepository;
+            Exam = exam;
+
+
         }
-        public Task<int> SaveChangesAsync()=> _context.SaveChangesAsync();
+        public Task<int> SaveChangesAsync() => _context.SaveChangesAsync();
 
     }
 }

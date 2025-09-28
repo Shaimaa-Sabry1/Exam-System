@@ -5,7 +5,7 @@
 namespace Exam_System.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_Role_And_UserClaims : Migration
+    public partial class Updatemodels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

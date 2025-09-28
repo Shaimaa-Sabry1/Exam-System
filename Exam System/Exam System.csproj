@@ -8,7 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Feature\Answers\**" />
+    <Compile Remove="Feature\Exams\**" />
+    <Compile Remove="Feature\Questions\**" />
+    <Compile Remove="Feature\Users\**" />
+    <Content Remove="Feature\Answers\**" />
+    <Content Remove="Feature\Exams\**" />
+    <Content Remove="Feature\Questions\**" />
+    <Content Remove="Feature\Users\**" />
+    <EmbeddedResource Remove="Feature\Answers\**" />
+    <EmbeddedResource Remove="Feature\Exams\**" />
+    <EmbeddedResource Remove="Feature\Questions\**" />
+    <EmbeddedResource Remove="Feature\Users\**" />
+    <None Remove="Feature\Answers\**" />
+    <None Remove="Feature\Exams\**" />
+    <None Remove="Feature\Questions\**" />
+    <None Remove="Feature\Users\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="10.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
@@ -19,13 +39,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Feature\Answers\" />
-    <Folder Include="Feature\Exams\" />
-    <Folder Include="Feature\Questions\" />
-    <Folder Include="Feature\Users\" />
   </ItemGroup>
 
 </Project>

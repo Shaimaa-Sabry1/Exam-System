@@ -1,4 +1,4 @@
-﻿namespace Exam_System.Domain.Entities
+﻿ namespace Exam_System.Domain.Entities
 {
     public class Exam
     {
