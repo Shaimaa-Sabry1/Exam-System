@@ -17,7 +17,7 @@ namespace Exam_System.Infrastructure.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
+            await  _dbSet.AddAsync(entity);
             return entity;
         }
 
@@ -30,10 +30,17 @@ namespace Exam_System.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+        //omar shipl 
 
-        public Task<T?> GetByIdAsync(Guid id)
+        public Task<IEnumerable<T>> GetAllAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<T?> GetByIdAsync(int id)
+        {
+            var entity= await _dbSet.FindAsync(id);
+            return entity;
         }
 
         public Task<T> UpdateAsync(T entity)

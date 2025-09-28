@@ -3,6 +3,8 @@
     public interface IUnitOfWork
     {
         ICategoryRepository Categories { get; }
+        IExamRepository Exam { get; }
+
         
         Task<int> SaveChangesAsync();
     }

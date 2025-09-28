@@ -1,8 +1,11 @@
+using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared.Interface;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +19,9 @@ builder.Services.AddDbContext<ExamDbcontext>(options =>  options.UseSqlServer( b
  );
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepository<>));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IExamRepository, ExamRepository>(); 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateExamCommandValidator>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
