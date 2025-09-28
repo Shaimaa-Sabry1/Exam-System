@@ -27,9 +27,13 @@ namespace Exam_System.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
-        public Task<IEnumerable<T1>> GetAllAsync<T1>()
+        
+
+        public async Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            var totalCount = await _dbSet.CountAsync();
+            var items = await _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return (items, totalCount);
         }
 
         public  async Task<T?> GetByIdAsync(int id)
