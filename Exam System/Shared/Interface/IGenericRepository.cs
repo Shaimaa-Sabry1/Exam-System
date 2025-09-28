@@ -6,7 +6,7 @@
         Task<T> UpdateAsync(T entity) ;
         Task DeleteAsync(T entity) ;
         Task<T?> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync<T>();
+        Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize);
 
 
     }
