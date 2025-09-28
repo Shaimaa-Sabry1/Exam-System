@@ -21,9 +21,10 @@ namespace Exam_System.Infrastructure.Repositories
             return entity;
         }
 
-        public Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity)
         {
-            throw new NotImplementedException();
+            _dbcontext.Remove(entity);
+            await Task.CompletedTask;
         }
 
         public Task<IEnumerable<T1>> GetAllAsync<T1>()

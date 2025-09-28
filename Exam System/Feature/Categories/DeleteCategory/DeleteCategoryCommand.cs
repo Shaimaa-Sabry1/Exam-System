@@ -1,6 +1,9 @@
-﻿namespace Exam_System.Feature.Categories.DeleteCategory
+﻿using MediatR;
+
+namespace Exam_System.Feature.Categories.DeleteCategory
 {
-    public class DeleteCategoryCommand
+    public class DeleteCategoryCommand:IRequest<bool>
     {
+        public int CategoryId { get; set; }
     }
 }
