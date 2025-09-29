@@ -23,6 +23,7 @@ namespace Exam_System.Feature.Queries
                 throw new ExamNotFoundException(request.Id);
             }
               return exam;
+
         }
     }
 }

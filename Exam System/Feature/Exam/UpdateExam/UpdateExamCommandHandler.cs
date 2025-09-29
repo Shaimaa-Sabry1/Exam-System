@@ -1,4 +1,5 @@
-﻿using Exam_System.Feature.Queries;
+﻿using Exam_System.Domain.Exception;
+using Exam_System.Feature.Queries;
 using Exam_System.Shared.Interface;
 using MediatR;
 
@@ -20,7 +21,7 @@ namespace Exam_System.Feature.Exam.UpdateExam
 
             if (exam == null)
             {
-                throw new Exception("Exam not found");
+                throw new ExamNotFoundException(request.Id);
             }
             exam.Title = request.Title;
             exam.Icon = request.Icon;
