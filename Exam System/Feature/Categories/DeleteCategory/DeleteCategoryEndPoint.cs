@@ -16,7 +16,9 @@ namespace Exam_System.Feature.Categories.DeleteCategory
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategoryById(int id)
         {
+            
             var result = await _mediator.Send(new DeleteCategoryCommand { CategoryId = id });
+
             if(!result) return NotFound();
             return Ok(result);
         }
