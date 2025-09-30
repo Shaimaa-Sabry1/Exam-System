@@ -6,18 +6,18 @@ namespace Exam_System.Infrastructure.Repositories
 {
     public class GenaricRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly ExamDbContext _dbcontext;
-        private readonly DbSet<T> _dbSet;
+        protected readonly ExamDbContext _dbcontext;
+        //protected readonly DbSet<T> _dbSet;
 
         public GenaricRepository(ExamDbContext dbcontext)
         {
             this._dbcontext = dbcontext;
-            this._dbSet = dbcontext.Set<T>();
+            //this._dbSet = dbcontext.Set<T>();
         }
 
         public async Task<T> AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
+            await _dbcontext.AddAsync(entity);
             return entity;
         }
 
@@ -27,18 +27,17 @@ namespace Exam_System.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
-        
 
         public async Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize)
         {
-            var totalCount = await _dbSet.CountAsync();
-            var items = await _dbSet.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var totalCount = await _dbcontext.Set<T>().CountAsync();
+            var items = await _dbcontext.Set<T>().Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return (items, totalCount);
         }
 
         public  async Task<T?> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id).AsTask();
+            return await _dbcontext.Set<T>().FindAsync(id).AsTask();
         }
 
         public Task<T> UpdateAsync(T entity)
