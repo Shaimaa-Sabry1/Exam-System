@@ -7,6 +7,7 @@ using Exam_System.Shared.Interface;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Exam_System.Feature.Exams.Commands.Validations;
+using Exam_System.Feature.Exam.UpdateExam;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +26,8 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepositor
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
- builder.Services.AddValidatorsFromAssembly(typeof(CreateExamCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreateExamCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(UpdateExamCommandValidator).Assembly);
 
 
 

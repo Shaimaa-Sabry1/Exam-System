@@ -1,8 +1,7 @@
 ﻿using Exam_System.Domain.Exception;
-using Exam_System.Feature.Queries;
+using Exam_System.Feature.Exam.Queries;
 using Exam_System.Shared.Interface;
 using MediatR;
-using MediatR.Wrappers;
 
 namespace Exam_System.Feature.Exam.DeleteExam
 {

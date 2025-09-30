@@ -3,9 +3,9 @@ using Exam_System.Domain.Exception;
 using Exam_System.Shared.Interface;
 using MediatR;
 
-namespace Exam_System.Feature.Queries
+namespace Exam_System.Feature.Exam.Queries
 {
-    public class GetQueryByIdHandler : IRequestHandler<GetByIdQuery, Exam_System.Domain.Entities.Exam>
+    public class GetQueryByIdHandler : IRequestHandler<GetByIdQuery, Domain.Entities.Exam>
     {
        
         private readonly IUnitOfWork _unitOfWork;
@@ -13,9 +13,9 @@ namespace Exam_System.Feature.Queries
         public GetQueryByIdHandler(IUnitOfWork unitOfWork)
         {
             
-            this._unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
-        public async Task<Exam_System.Domain.Entities.Exam> Handle(GetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Domain.Entities.Exam> Handle(GetByIdQuery request, CancellationToken cancellationToken)
         {
            var exam = await _unitOfWork.Exam.GetByIdAsync(request.Id);
             if (exam == null) 
