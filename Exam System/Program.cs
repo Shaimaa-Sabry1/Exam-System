@@ -1,12 +1,13 @@
 //using Exam_System.Feature.Exams.Commands.Validations;
-using FluentValidation; // Add this using directive at the top of the file
+using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
+using Exam_System.Shared.Extenstions;
 using Exam_System.Shared.Interface;
+using FluentValidation; // Add this using directive at the top of the file
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Exam_System.Feature.Exams.Commands.Validations;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 
 var app = builder.Build();
 
@@ -47,6 +50,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
