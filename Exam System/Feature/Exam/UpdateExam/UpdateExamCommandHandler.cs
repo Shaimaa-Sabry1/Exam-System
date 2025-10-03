@@ -1,5 +1,7 @@
-﻿using Exam_System.Feature.Queries;
+﻿using Exam_System.Domain.Exception;
+using Exam_System.Feature.Exam.Queries;
 using Exam_System.Shared.Interface;
+using FluentValidation;
 using MediatR;
 
 namespace Exam_System.Feature.Exam.UpdateExam
@@ -8,11 +10,13 @@ namespace Exam_System.Feature.Exam.UpdateExam
     {
         private readonly IMediator _mediator;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IValidator<UpdateExamCommand> _validator;
 
-        public UpdateExamCommandHandler(IMediator mediator, IUnitOfWork unitOfWork)
+        public UpdateExamCommandHandler(IMediator mediator, IUnitOfWork unitOfWork,IValidator<UpdateExamCommand>validator)
         {
             this._mediator = mediator;
             this._unitOfWork = unitOfWork;
+            this._validator = validator;
         }
         public async Task<bool> Handle(UpdateExamCommand request, CancellationToken cancellationToken)
         {
@@ -20,7 +24,12 @@ namespace Exam_System.Feature.Exam.UpdateExam
 
             if (exam == null)
             {
-                throw new Exception("Exam not found");
+                throw new ExamNotFoundException(request.Id);
+            }
+            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
             }
             exam.Title = request.Title;
             exam.Icon = request.Icon;

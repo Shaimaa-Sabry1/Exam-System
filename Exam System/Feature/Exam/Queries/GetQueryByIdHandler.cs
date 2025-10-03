@@ -3,7 +3,7 @@ using Exam_System.Domain.Exception;
 using Exam_System.Shared.Interface;
 using MediatR;
 
-namespace Exam_System.Feature.Queries
+namespace Exam_System.Feature.Exam.Queries
 {
     public class GetQueryByIdHandler : IRequestHandler<GetByIdQuery, Domain.Entities.Exam>
     {

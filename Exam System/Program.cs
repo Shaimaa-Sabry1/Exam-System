@@ -37,6 +37,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 
 
 
+
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 builder.Services.AddControllers();
