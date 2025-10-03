@@ -8,7 +8,7 @@ namespace Exam_System.Feature.Exam.UpdateExam
 
     public class ExamController  :ControllerBase
     {
-        [HttpPut]
+        [HttpPut("{Id}")]
         public async Task<IActionResult> UpdateExam([FromRoute] int Id,[FromBody] UpdateExamCommand command, [FromServices] IMediator mediator)
         {   
             command.Id=Id;

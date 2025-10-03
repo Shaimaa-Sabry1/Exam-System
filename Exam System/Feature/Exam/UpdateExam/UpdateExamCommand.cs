@@ -8,6 +8,7 @@ namespace Exam_System.Feature.Exam.UpdateExam
         [JsonIgnore]
         public int Id { get; set; }
 
+
         public string Title { get; set; }
         public string? Icon { get; set; }
         public int DurationInMinutes { get; set; }
