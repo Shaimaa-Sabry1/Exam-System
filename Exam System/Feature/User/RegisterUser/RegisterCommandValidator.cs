@@ -2,7 +2,7 @@
 
 namespace Exam_System.Feature.User.RegisterUser
 {
-    public class RegisterCommandValidator : AbstractValidator<RegisterDTO>
+    public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
         public RegisterCommandValidator()
         {
