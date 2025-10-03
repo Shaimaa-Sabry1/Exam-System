@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Exam_System.Shared.Response;
+using MediatR;
 
 namespace Exam_System.Feature.User.RegisterUser
 {
@@ -8,5 +9,5 @@ namespace Exam_System.Feature.User.RegisterUser
     string Email,
     string Password,
     string ConfirmPassword,
-    string PhoneNumber) : IRequest;
+    string PhoneNumber) : IRequest<ResponseResult<string>>;
 }

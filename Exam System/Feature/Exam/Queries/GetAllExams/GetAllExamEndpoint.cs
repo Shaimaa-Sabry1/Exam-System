@@ -7,10 +7,16 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
     [ApiController]
     public class ExamController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAllExams([FromQuery] GetAllExamQuery query, [FromServices] IMediator mediator)
+        private readonly IMediator _mediator;
+
+        public ExamController(IMediator mediator)
         {
-            var result = await mediator.Send(query);
+            this._mediator = mediator;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllExams([FromQuery] GetAllExamQuery query)
+        {
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }
