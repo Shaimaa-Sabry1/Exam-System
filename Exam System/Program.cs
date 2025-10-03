@@ -8,11 +8,10 @@ using Exam_System.Shared.Interface;
 using FluentValidation; // Add this using directive at the top of the file
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
+
 using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exam.UpdateExam;
-=======
->>>>>>> cd9b05cc89380d64e97fb86d58d164b8f832ace1
+
 
 
 var builder = WebApplication.CreateBuilder(args);
