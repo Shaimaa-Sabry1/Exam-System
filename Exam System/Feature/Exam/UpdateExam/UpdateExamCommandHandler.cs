@@ -1,5 +1,5 @@
 ﻿using Exam_System.Domain.Exception;
-using Exam_System.Feature.Exam.Queries;
+using Exam_System.Feature.Exam.Queries.GetExamById;
 using Exam_System.Shared.Interface;
 using FluentValidation;
 using MediatR;
@@ -20,7 +20,7 @@ namespace Exam_System.Feature.Exam.UpdateExam
         }
         public async Task<bool> Handle(UpdateExamCommand request, CancellationToken cancellationToken)
         {
-            var exam = await _mediator.Send(new GetByIdQuery(request.Id));
+            var exam = await _mediator.Send(new GetExamByIdQuery(request.Id));
 
             if (exam == null)
             {

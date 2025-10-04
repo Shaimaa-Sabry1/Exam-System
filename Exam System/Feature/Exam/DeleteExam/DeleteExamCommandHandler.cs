@@ -1,5 +1,7 @@
 ﻿using Exam_System.Domain.Exception;
 using Exam_System.Feature.Exam.Queries;
+using Exam_System.Feature.Exam.Queries;
+using Exam_System.Feature.Exam.Queries.GetExamById;
 using Exam_System.Shared.Interface;
 using MediatR;
 
@@ -17,7 +19,7 @@ namespace Exam_System.Feature.Exam.DeleteExam
         }
         public async Task<bool> Handle(DeleteExamCommand request, CancellationToken cancellationToken)
         {
-            var exam = await _mediator.Send(new GetByIdQuery(request.Id));
+            var exam = await _mediator.Send(new GetExamByIdQuery(request.Id));
             if (exam == null) 
             {
                 throw new ExamNotFoundException(request.Id);
