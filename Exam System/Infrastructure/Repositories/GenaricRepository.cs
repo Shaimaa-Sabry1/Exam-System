@@ -16,7 +16,7 @@ namespace Exam_System.Infrastructure.Repositories
             //this._dbSet = dbcontext.Set<T>();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbcontext.AddAsync(entity);
             return entity;
