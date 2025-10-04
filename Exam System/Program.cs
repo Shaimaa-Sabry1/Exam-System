@@ -33,6 +33,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ExamDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
  );
+builder.Services.AddScoped(typeof(GenaricRepository<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepository<>));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

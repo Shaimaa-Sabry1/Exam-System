@@ -1,4 +1,5 @@
-﻿using Exam_System.Infrastructure.Persistance.Data;
+﻿using Exam_System.Domain.Entities;
+using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Shared.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +36,14 @@ namespace Exam_System.Infrastructure.Repositories
             return (items, totalCount);
         }
 
+        public async Task<IQueryable<Exam>> GetAllExamAsync()
+        {
+            var today= DateTime.Today;
+
+            return  _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
+            
+        }
+         
         public  async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();

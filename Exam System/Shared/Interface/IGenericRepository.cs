@@ -1,4 +1,6 @@
-﻿namespace Exam_System.Shared.Interface
+﻿using Exam_System.Domain.Entities;
+
+namespace Exam_System.Shared.Interface
 {
     public interface IGenericRepository<T> where T : class
     {
@@ -7,6 +9,7 @@
         Task DeleteAsync(T entity) ;
         Task<T?> GetByIdAsync(int id);
         Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize);
+        Task<IQueryable<Exam>> GetAllExamAsync();
 
 
     }
