@@ -9,6 +9,7 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
     {
         private readonly ExamDbContext _dbContext;
 
+
         public GetAllExamQueryHandler(ExamDbContext dbContext)
         {
             this._dbContext = dbContext;
@@ -16,6 +17,7 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
 
         public async Task<GetAllExamResponse> Handle(GetAllExamQuery request, CancellationToken cancellationToken)
         {
+            var today = DateTime.Today;
             var totalcount = await _dbContext.Exams.CountAsync();
             var exams = await _dbContext.Exams
                 .Skip((request.PageNumber - 1) * request.PageSize)
@@ -28,7 +30,8 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
                     StartDate = request.StartDate,
                     CreatedAt = request.CreatedAt,
                     Icon= request.Icon,
-                    Title= request.Title
+                    Title= request.Title,
+                    IsActive= (request.StartDate<=today&&request.EndDate>= today)
                 }).ToListAsync();
             return new GetAllExamResponse 
             {
