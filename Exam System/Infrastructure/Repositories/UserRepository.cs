@@ -11,7 +11,17 @@ namespace Exam_System.Infrastructure.Repositories
         public UserRepository(ExamDbContext dbcontext) : base(dbcontext)
         {
         }
+        public override async Task<User> AddAsync(User user)
+        {
+            string password = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(user.Password));
+            user.Password = password;
+            return await base.AddAsync(user);
+        }
+        public async Task<bool> CheckPasswordAsync(User user, string password)
+        {
+            return await Task.Run(() => BCrypt.Net.BCrypt.Verify(password, user.Password));
 
+        }
         public async Task<(bool, User?)> CheckUserExistAsync(IFilterSpecification<User> specification)
         {
             var user = await _dbcontext.Users.FirstOrDefaultAsync(specification.Criteria);

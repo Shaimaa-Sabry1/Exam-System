@@ -8,5 +8,6 @@ namespace Exam_System.Shared.Interface
         Task<(bool Exists, User? User)> CheckUserExistAsync(IFilterSpecification<User> specification);
         Task AddClaimsAsync(List<UserClaim> Claims);
         Task<List<Claim>> GetClaimsAsync(User user);
+        Task<bool> CheckPasswordAsync(User user, string password);
     }
 }
