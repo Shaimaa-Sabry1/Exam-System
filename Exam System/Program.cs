@@ -1,20 +1,21 @@
 //using Exam_System.Feature.Exams.Commands.Validations;
+using Exam_System.Feature.Exam.UpdateExam;
+using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.User.RegisterUser;
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared;
+using Exam_System.Shared.Cofiguration;
 using Exam_System.Shared.Extenstions;
 using Exam_System.Shared.Interface;
 using Exam_System.Shared.Middlewares;
+using Exam_System.Shared.Services;
 using FluentValidation; // Add this using directive at the top of the file
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
-
-using Exam_System.Feature.Exams.Commands.Validations;
-using Exam_System.Feature.Exam.UpdateExam;
+using Microsoft.Extensions.Caching.Memory;
 
 
 
@@ -42,7 +43,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 
+builder.Services.AddTransient<EmailVerificationService>();
+builder.Services.AddMemoryCache();
 
 
 builder.Services.AddMediatR(typeof(Program).Assembly);

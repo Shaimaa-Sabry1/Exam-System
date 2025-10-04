@@ -11,18 +11,30 @@ namespace Exam_System.Infrastructure.Repositories
         public UserRepository(ExamDbContext dbcontext) : base(dbcontext)
         {
         }
+
+        public async Task ChangePasswordAsync(int userId, string password)
+        {
+            var hashedPassword = await GeneratePasswordHashAsync(password);
+            await _dbcontext.Database.ExecuteSqlInterpolatedAsync(
+                $"UPDATE Users SET Password = {hashedPassword} WHERE Id = {userId}");
+        }
         public override async Task<User> AddAsync(User user)
         {
-            string password = await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(user.Password));
-            user.Password = password;
+            user.Password = await GeneratePasswordHashAsync(user.Password);
             return await base.AddAsync(user);
         }
+
+        private async Task<string> GeneratePasswordHashAsync(string realPassword)
+        {
+            return await Task.Run(() => BCrypt.Net.BCrypt.HashPassword(realPassword));
+        }
+
         public async Task<bool> CheckPasswordAsync(User user, string password)
         {
             return await Task.Run(() => BCrypt.Net.BCrypt.Verify(password, user.Password));
 
         }
-        public async Task<(bool, User?)> CheckUserExistAsync(IFilterSpecification<User> specification)
+        public async Task<(bool isExist, User? user)> CheckUserExistAsync(IFilterSpecification<User> specification)
         {
             var user = await _dbcontext.Users.FirstOrDefaultAsync(specification.Criteria);
             return (user is not null, user);

@@ -38,13 +38,18 @@ namespace Exam_System.Infrastructure.Repositories
 
         public async Task<IQueryable<Exam>> GetAllExamAsync()
         {
-            var today= DateTime.Today;
+            var today = DateTime.Today;
 
-            return  _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
-            
+            return _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
+
         }
-         
-        public  async Task<T?> GetByIdAsync(int id)
+
+        public async Task<T> GetByCretireaAsync(IFilterSpecification<T> specification)
+        {
+            return await _dbcontext.Set<T>().FirstOrDefaultAsync(specification.Criteria);
+        }
+
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();
         }

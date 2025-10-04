@@ -23,10 +23,10 @@ namespace Exam_System.Feature.User.RegisterUser
         }
         public async Task<ResponseResult<string>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            if ((await _mediator.Send(new CheckUserExistsQuery(new UserByEmailSpecification(request.Email)))).Item1)
+            if ((await _mediator.Send(new CheckUserExistsQuery(new UserByEmailSpecification(request.Email)))).isExist)
                 return ResponseResult<string>.FailResponse("Email already taken");
 
-            if ((await _mediator.Send(new CheckUserExistsQuery(new UserByUserNameSpecification(request.UserName)))).Item1)
+            if ((await _mediator.Send(new CheckUserExistsQuery(new UserByUserNameSpecification(request.UserName)))).isExist)
                 return ResponseResult<string>.FailResponse("UserName already taken");
 
             var user = new Exam_System.Domain.Entities.User
