@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exam_System.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    partial class ExamDbcontextModelSnapshot : ModelSnapshot
+    partial class ExamDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -287,6 +287,34 @@ namespace Exam_System.Migrations
                     b.ToTable("UserClaims");
                 });
 
+            modelBuilder.Entity("Exam_System.Domain.Entities.UserToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiredDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserTokens");
+                });
+
             modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
                 {
                     b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
@@ -381,6 +409,17 @@ namespace Exam_System.Migrations
                 {
                     b.HasOne("Exam_System.Domain.Entities.User", "User")
                         .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.UserToken", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
