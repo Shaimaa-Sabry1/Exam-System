@@ -1,5 +1,7 @@
 //using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exams.Commands.Validations;
+using Exam_System.Feature.Questions.AddQuestions;
+using Exam_System.Feature.Questions.EditQuestion;
 using Exam_System.Feature.User.RegisterUser;
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
@@ -31,6 +33,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepositor
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -40,9 +43,9 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddControllers();
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 

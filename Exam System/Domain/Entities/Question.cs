@@ -4,8 +4,8 @@
     {
         public int Id { get; set; }
 
-        public string Title { get; set; }
-        public string Type { get; set; }  // e.g., "Multiple Choice", "Single Choice"
+        public string Title { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty; // e.g., "Multiple Choice", "Single Choice"
 
         public int ExamId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
