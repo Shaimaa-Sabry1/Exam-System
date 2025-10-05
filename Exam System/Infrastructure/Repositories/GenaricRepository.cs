@@ -43,8 +43,16 @@ namespace Exam_System.Infrastructure.Repositories
             return  _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
             
         }
-         
-        public  async Task<T?> GetByIdAsync(int id)
+        public  IQueryable<T> GetAll()
+        {
+
+
+            return _dbcontext.Set<T>();
+
+        }
+
+
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();
         }

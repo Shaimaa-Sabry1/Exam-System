@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exam.UpdateExam;
+using Exam_System.Service;
 
 
 
@@ -39,6 +40,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IImageHelper,ImageService>();
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
@@ -52,7 +54,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
-
+ 
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -64,6 +66,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

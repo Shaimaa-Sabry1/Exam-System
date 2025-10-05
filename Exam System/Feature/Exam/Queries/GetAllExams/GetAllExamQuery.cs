@@ -11,5 +11,6 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
        
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;
+        public string? Search { get; set; }
     }
 }

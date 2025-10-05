@@ -16,8 +16,9 @@ namespace Exam_System.Feature.Exam.Queries.GetAllActiveExam
         public async Task<GetAllExamResponse> Handle(GetAllActiveQuery request, CancellationToken cancellationToken)
         {
             var today = DateTime.Today;
-            var exam = await _examrepo.GetAllExamAsync();
-            
+            var exam =  _examrepo.GetAll();
+            exam = exam.Where(e => e.StartDate <= today && e.EndDate >= today);
+
             var activeExams = exam.ToList();
             var totalcount = activeExams.Count;
             var exams = activeExams
