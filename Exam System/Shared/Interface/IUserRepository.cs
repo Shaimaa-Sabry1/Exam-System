@@ -5,8 +5,11 @@ namespace Exam_System.Shared.Interface
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<(bool Exists, User? User)> CheckUserExistAsync(IFilterSpecification<User> specification);
+        Task<(bool isExist, User? user)> CheckUserExistAsync(IFilterSpecification<User> specification);
         Task AddClaimsAsync(List<UserClaim> Claims);
         Task<List<Claim>> GetClaimsAsync(User user);
+        Task<bool> CheckPasswordAsync(User user, string password);
+
+        Task ChangePasswordAsync(int userId, string password);
     }
 }
