@@ -37,7 +37,6 @@ namespace Exam_System.Service
                 relativePath = uri.AbsolutePath.TrimStart('/');
             }
             var fullPath = Path.Combine(_webHostEnvironment.WebRootPath, relativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
-            
             if (File.Exists(fullPath)) File.Delete(fullPath);
                 return Task.CompletedTask;
 
