@@ -14,7 +14,7 @@ namespace Exam_System.Feature.Exams.Endpoint
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateExam([FromBody] Commands.CreateExamCommand command)
+        public async Task<IActionResult> CreateExam([FromForm] Commands.CreateExamCommand command)
         {
              
             var examId = await _mediator.Send(command);

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Exam_System.Feature.Exam.Queries.GetAllExams
+namespace Exam_System.Feature.Exam.Queries.GetAllActiveExam
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class ExamController : ControllerBase
+    [Route("api/[controller]")]
+    public class ExamController: ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -13,11 +13,12 @@ namespace Exam_System.Feature.Exam.Queries.GetAllExams
         {
             this._mediator = mediator;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAllExams([FromQuery] GetAllExamQuery query)
+        [HttpGet("active")]
+        public async Task<IActionResult> GetAllActiveExams([FromQuery] GetAllActiveQuery query)
         {
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
     }
 }

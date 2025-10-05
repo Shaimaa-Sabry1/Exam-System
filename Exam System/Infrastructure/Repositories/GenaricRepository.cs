@@ -1,4 +1,5 @@
-﻿using Exam_System.Infrastructure.Persistance.Data;
+﻿using Exam_System.Domain.Entities;
+using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Shared.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace Exam_System.Infrastructure.Repositories
             //this._dbSet = dbcontext.Set<T>();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbcontext.AddAsync(entity);
             return entity;
@@ -35,7 +36,20 @@ namespace Exam_System.Infrastructure.Repositories
             return (items, totalCount);
         }
 
-        public  async Task<T?> GetByIdAsync(int id)
+        public async Task<IQueryable<Exam>> GetAllExamAsync()
+        {
+            var today = DateTime.Today;
+
+            return _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
+
+        }
+
+        public async Task<T> GetByCretireaAsync(IFilterSpecification<T> specification)
+        {
+            return await _dbcontext.Set<T>().FirstOrDefaultAsync(specification.Criteria);
+        }
+
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();
         }
@@ -44,6 +58,13 @@ namespace Exam_System.Infrastructure.Repositories
         {
             _dbcontext.Update(entity);
             return Task.FromResult(entity);
+        }
+        public IQueryable<T> GetAll()
+        {
+
+
+            return _dbcontext.Set<T>();
+
         }
     }
 }

@@ -3,19 +3,21 @@ using Exam_System.Domain.Exception;
 using Exam_System.Shared.Interface;
 using MediatR;
 
-namespace Exam_System.Feature.Exam.Queries
+
+namespace Exam_System.Feature.Exam.Queries.GetExamById
 {
-    public class GetQueryByIdHandler : IRequestHandler<GetByIdQuery, Domain.Entities.Exam>
+    public class GetExamByIdQueryHandler : IRequestHandler<GetExamByIdQuery, Domain.Entities.Exam>
     {
-       
+
         private readonly IUnitOfWork _unitOfWork;
 
-        public GetQueryByIdHandler(IUnitOfWork unitOfWork)
+
+        public GetExamByIdQueryHandler(IUnitOfWork unitOfWork)
         {
             
             _unitOfWork = unitOfWork;
         }
-        public async Task<Domain.Entities.Exam> Handle(GetByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Domain.Entities.Exam> Handle(GetExamByIdQuery request, CancellationToken cancellationToken)
         {
            var exam = await _unitOfWork.Exam.GetByIdAsync(request.Id);
             if (exam == null) 

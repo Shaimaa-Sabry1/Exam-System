@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Exam_System.Feature.Categories.GetAllCategory
 {
-    public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, object>
+    public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQuery, CategoryPagedResponse>
     {
         private readonly ExamDbContext _dbContext;
 
@@ -13,27 +13,31 @@ namespace Exam_System.Feature.Categories.GetAllCategory
         {
             this._dbContext = dbContext;
         }
-        public async Task<object> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
+       
+
+        async Task<CategoryPagedResponse> IRequestHandler<GetAllCategoryQuery, CategoryPagedResponse>.Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
         {
-            var totalCount=await _dbContext.Categories.CountAsync(cancellationToken);
+            var totalCount = await _dbContext.Categories.CountAsync(cancellationToken);
             var categories = await _dbContext.Categories
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .Select(c => new CategoryDto
                 {
-                    CategoryId = c.Id,
+                    Id = c.Id,
                     Title = c.Title,
                     Icon = c.Icon,
+                    CreatedAt = c.CreatedAt
+
                 })
                 .ToListAsync(cancellationToken);
-            return new
+            return new CategoryPagedResponse
             {
-                Items = categories,
-                TotalCount = totalCount,
+                Categories= categories,
                 PageNumber = request.PageNumber,
-                PageSize = request.PageSize
-            };
-
+                PageSize = request.PageSize,
+                TotalCount = totalCount
+            }
+            ;
         }
     }
 }
