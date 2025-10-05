@@ -5,6 +5,7 @@ using Exam_System.Shared.Interface;
 using Exam_System.Shared.Response;
 using Exam_System.Shared.Specification;
 using MediatR;
+using Org.BouncyCastle.Crypto.Generators;
 using System.Security.Claims;
 
 namespace Exam_System.Feature.User.RegisterUser
@@ -28,14 +29,14 @@ namespace Exam_System.Feature.User.RegisterUser
 
             if ((await _mediator.Send(new CheckUserExistsQuery(new UserByUserNameSpecification(request.UserName)))).Item1)
                 return ResponseResult<string>.FailResponse("UserName already taken");
-
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var user = new Exam_System.Domain.Entities.User
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
                 UserName = request.UserName,
-                Password = request.Password,
+                Password = hashedPassword,
                 PhoneNumber = request.PhoneNumber,
                 RoleId = (int)RoleType.Student,
             };
