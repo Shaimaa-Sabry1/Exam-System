@@ -44,22 +44,11 @@ namespace Exam_System.Infrastructure.Repositories
 
         }
 
-       
-
-
-
         public async Task<T> GetByCretireaAsync(IFilterSpecification<T> specification)
         {
             return await _dbcontext.Set<T>().FirstOrDefaultAsync(specification.Criteria);
         }
 
-        public IQueryable<T> GetAll()
-        {
-
-
-            return _dbcontext.Set<T>();
-
-        }
         public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();

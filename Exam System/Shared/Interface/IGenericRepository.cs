@@ -11,12 +11,7 @@ namespace Exam_System.Shared.Interface
         Task<T?> GetByIdAsync(int id);
         Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize);
         Task<IQueryable<Exam>> GetAllExamAsync();
-
-        IQueryable<T> GetAll();
-
-
         Task<T> GetByCretireaAsync(IFilterSpecification<T> specification);
-
 
     }
 }
