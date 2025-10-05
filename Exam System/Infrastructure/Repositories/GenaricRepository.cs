@@ -59,5 +59,12 @@ namespace Exam_System.Infrastructure.Repositories
             _dbcontext.Update(entity);
             return Task.FromResult(entity);
         }
+        public IQueryable<T> GetAll()
+        {
+
+
+            return _dbcontext.Set<T>();
+
+        }
     }
 }
