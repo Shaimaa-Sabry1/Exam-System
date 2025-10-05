@@ -6,7 +6,7 @@ namespace Exam_System.Service
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ImageService(IWebHostEnvironment webHostEnvironment )
+        public ImageService(IWebHostEnvironment webHostEnvironment)
         {
             this._webHostEnvironment = webHostEnvironment;
         }
@@ -38,7 +38,7 @@ namespace Exam_System.Service
             }
             var fullPath = Path.Combine(_webHostEnvironment.WebRootPath, relativePath.Replace("/", Path.DirectorySeparatorChar.ToString()));
             if (File.Exists(fullPath)) File.Delete(fullPath);
-                return Task.CompletedTask;
+            return Task.CompletedTask;
 
 
         }
@@ -53,18 +53,18 @@ namespace Exam_System.Service
         {
             //var uploadsFolder = Path.Combine(_env.WebRootPath, folder)
             // ensure folder is exists
-            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath,folder);
-            if(!Directory.Exists(uploadsFolder))
+            var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+            if (!Directory.Exists(uploadsFolder))
             {
-               Directory.CreateDirectory(uploadsFolder);
+                Directory.CreateDirectory(uploadsFolder);
             }
-            var uniqueFileName = Guid.NewGuid().ToString()+file.FileName;
+            var uniqueFileName = Guid.NewGuid().ToString() + file.FileName;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using(var fileStream = new FileStream(filePath, FileMode.Create))
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-               await file.CopyToAsync(fileStream);
+                await file.CopyToAsync(fileStream);
             }
-            return   $"{folder}/{uniqueFileName}".Replace("\\", "/");
+            return $"{folder}/{uniqueFileName}".Replace("\\", "/");
 
 
 

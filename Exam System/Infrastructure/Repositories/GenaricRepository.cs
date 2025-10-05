@@ -16,7 +16,7 @@ namespace Exam_System.Infrastructure.Repositories
             //this._dbSet = dbcontext.Set<T>();
         }
 
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _dbcontext.AddAsync(entity);
             return entity;
@@ -38,20 +38,28 @@ namespace Exam_System.Infrastructure.Repositories
 
         public async Task<IQueryable<Exam>> GetAllExamAsync()
         {
-            var today= DateTime.Today;
+            var today = DateTime.Today;
 
-            return  _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
-            
+            return _dbcontext.Set<Exam>().Where(e => e.StartDate <= today && e.EndDate >= today);
+
         }
-        public  IQueryable<T> GetAll()
+
+       
+
+
+
+        public async Task<T> GetByCretireaAsync(IFilterSpecification<T> specification)
+        {
+            return await _dbcontext.Set<T>().FirstOrDefaultAsync(specification.Criteria);
+        }
+
+        public IQueryable<T> GetAll()
         {
 
 
             return _dbcontext.Set<T>();
 
         }
-
-
         public async Task<T?> GetByIdAsync(int id)
         {
             return await _dbcontext.Set<T>().FindAsync(id).AsTask();
