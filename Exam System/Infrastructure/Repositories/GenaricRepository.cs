@@ -28,6 +28,13 @@ namespace Exam_System.Infrastructure.Repositories
             await Task.CompletedTask;
         }
 
+        public IQueryable<T> GetAll()
+        {
+
+
+            return _dbcontext.Set<T>();
+
+        }
 
         public async Task<(IEnumerable<T> Items, int TotalCount)> GetAllAsync(int pageNumber, int pageSize)
         {
