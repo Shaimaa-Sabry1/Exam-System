@@ -6,6 +6,7 @@ using Exam_System.Feature.User.RegisterUser;
 using Exam_System.Infrastructure.Persistance;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
+using Exam_System.Service;
 using Exam_System.Shared;
 using Exam_System.Shared.Cofiguration;
 using Exam_System.Shared.Extenstions;
