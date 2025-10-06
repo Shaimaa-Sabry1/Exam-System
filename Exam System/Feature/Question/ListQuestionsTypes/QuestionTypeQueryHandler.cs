@@ -1,5 +1,6 @@
 ﻿using Exam_System.Domain.Enums;
 using Exam_System.Feature.Question.DeleteQuestion;
+using Exam_System.Feature.Question.ListQuestionsTypes.Dtos;
 using Exam_System.Shared.Response;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

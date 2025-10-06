@@ -1,4 +1,4 @@
-﻿using Exam_System.Domain.Entities;
+﻿using Exam_System.Feature.Question.EditQuestion.Dtos;
 using Exam_System.Feature.Questions.AddQuestions;
 using Exam_System.Shared.Response;
 using MediatR;

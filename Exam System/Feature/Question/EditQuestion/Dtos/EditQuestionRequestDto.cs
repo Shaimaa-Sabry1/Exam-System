@@ -1,4 +1,6 @@
-﻿namespace Exam_System.Domain.Entities
+﻿using Exam_System.Feature.Question.AddQuestion.Dtos;
+
+namespace Exam_System.Feature.Question.EditQuestion.Dtos
 {
     public class EditQuestionRequestDto
     {

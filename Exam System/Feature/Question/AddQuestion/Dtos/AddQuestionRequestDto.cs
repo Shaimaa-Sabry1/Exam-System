@@ -1,4 +1,4 @@
-﻿namespace Exam_System.Domain.Entities
+﻿namespace Exam_System.Feature.Question.AddQuestion.Dtos
 {
     public class AddQuestionRequestDto
     {

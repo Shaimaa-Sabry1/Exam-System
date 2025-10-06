@@ -1,4 +1,4 @@
-﻿namespace Exam_System.Feature.Question.ListQuestionsTypes
+﻿namespace Exam_System.Feature.Question.ListQuestionsTypes.Dtos
 {
     public class QuestionTypeDto
     {

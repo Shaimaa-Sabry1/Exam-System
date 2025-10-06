@@ -1,13 +1,14 @@
-﻿using System.Reflection;
+﻿using Exam_System.Feature.Question.AddQuestion.Dtos;
+using System.Reflection;
 
-namespace Exam_System.Domain.Entities
+namespace Exam_System.Feature.Question.EditQuestion.Dtos
 {
     public class EditQuestionToReturnDto
     {
         public string Title { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public int ExamId { get; set; }
-        public List<ChoiceDto> Choices { get; set; } = new();
+        public List<ChoiceToReturnDto> Choices { get; set; } = new();
     }
 }
 //{

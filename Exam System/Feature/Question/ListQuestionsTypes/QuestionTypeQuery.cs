@@ -1,4 +1,5 @@
-﻿using Exam_System.Shared.Response;
+﻿using Exam_System.Feature.Question.ListQuestionsTypes.Dtos;
+using Exam_System.Shared.Response;
 using MediatR;
 
 namespace Exam_System.Feature.Question.ListQuestionsTypes

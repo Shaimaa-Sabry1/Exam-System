@@ -10,7 +10,7 @@ namespace Exam_System.Feature.Questions.EditQuestion
                        .NotEmpty().WithMessage("Title is required")
                        .MinimumLength(3).WithMessage("Title must be at least 3 characters long")
                        .MaximumLength(20).WithMessage("Title must not exceed 20 characters")
-                       .Matches(@"^[a-zA-Z\s]+$").WithMessage("Title must contain only letters and spaces");
+                       .Matches(@"^[a-zA-Z\s\?]+$").WithMessage("Title must contain only letters ,spaces and a question mark");
 
             RuleFor(x => x.Type)
                 .NotEmpty().WithMessage("Please select a question type");

@@ -1,5 +1,4 @@
-﻿using Exam_System.Domain.Entities;
-using Exam_System.Feature.Question.AddQuestion;
+﻿using Exam_System.Feature.Question.AddQuestion.Dtos;
 using Exam_System.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

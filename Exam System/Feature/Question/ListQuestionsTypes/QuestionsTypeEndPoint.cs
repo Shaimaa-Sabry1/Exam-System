@@ -1,5 +1,5 @@
 ﻿using Exam_System.Feature.Question.DeleteQuestion;
-using Exam_System.Feature.Question.ListQuestionsTypes;
+using Exam_System.Feature.Question.ListQuestionsTypes.Dtos;
 using Exam_System.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
