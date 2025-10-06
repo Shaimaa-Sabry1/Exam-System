@@ -16,6 +16,9 @@ namespace Exam_System.Infrastructure.Persistance.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserClaim> UserClaims { get; set; }
         public DbSet<UserToken> UserTokens { get; set; }
+        public DbSet<StartExam> Attempts { get; set; }
+        public DbSet<AttemptQuestion> AttemptQuestions { get; set; } 
+        public DbSet<AttemptQuestionChoice> AttemptQuestionChoices { get; set; } 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

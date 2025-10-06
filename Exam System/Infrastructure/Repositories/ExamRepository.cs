@@ -7,5 +7,6 @@ public class ExamRepository : GenaricRepository<Exam>, IExamRepository
 {
     public ExamRepository(ExamDbContext context) : base(context)
     {
+        
     }
 }

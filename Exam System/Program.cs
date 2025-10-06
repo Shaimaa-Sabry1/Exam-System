@@ -10,6 +10,7 @@ using Exam_System.Service;
 using Exam_System.Shared;
 using Exam_System.Shared.Cofiguration;
 using Exam_System.Shared.Extenstions;
+using Exam_System.Shared.Helpers;
 using Exam_System.Shared.Interface;
 using Exam_System.Shared.Middlewares;
 using Exam_System.Shared.Services;
@@ -41,7 +42,8 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IImageHelper,ImageService>();
+builder.Services.AddScoped<IImageHelper, Exam_System.Service.ImageService>();
+builder.Services.AddScoped<IShuffleService, ShuffleService>();
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
