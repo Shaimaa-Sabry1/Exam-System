@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Exam_System.Migrations
 {
     /// <inheritdoc />
-    public partial class AllModels : Migration
+    public partial class IntialCreate_StartExam : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,6 +86,29 @@ namespace Exam_System.Migrations
                         name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attempts",
+                columns: table => new
+                {
+                    attemptId = table.Column<int>(type: "int", nullable: false),
+                    examId = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    endTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    score = table.Column<int>(type: "int", nullable: true, defaultValue: 0),
+                    DurationTakenMinutes = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attempts", x => x.attemptId);
+                    table.ForeignKey(
+                        name: "FK_Attempts_Exams_attemptId",
+                        column: x => x.attemptId,
+                        principalTable: "Exams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -184,6 +207,36 @@ namespace Exam_System.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AttemptQuestions",
+                columns: table => new
+                {
+                    attemptQuestionId = table.Column<int>(type: "int", nullable: false),
+                    startExamId = table.Column<int>(type: "int", nullable: false),
+                    questionId = table.Column<int>(type: "int", nullable: false),
+                    order = table.Column<int>(type: "int", nullable: false),
+                    ChoiceOrderJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChoiceOrder = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SelectedChoiceId = table.Column<int>(type: "int", nullable: true),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttemptQuestions", x => x.attemptQuestionId);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestions_Attempts_attemptQuestionId",
+                        column: x => x.attemptQuestionId,
+                        principalTable: "Attempts",
+                        principalColumn: "attemptId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestions_Questions_questionId",
+                        column: x => x.questionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Choices",
                 columns: table => new
                 {
@@ -237,6 +290,35 @@ namespace Exam_System.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AttemptQuestionChoices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AttemptQuestionId = table.Column<int>(type: "int", nullable: false),
+                    ChoiceId = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    IsSelected = table.Column<bool>(type: "bit", nullable: true),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttemptQuestionChoices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestionChoices_AttemptQuestions_AttemptQuestionId",
+                        column: x => x.AttemptQuestionId,
+                        principalTable: "AttemptQuestions",
+                        principalColumn: "attemptQuestionId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AttemptQuestionChoices_Choices_ChoiceId",
+                        column: x => x.ChoiceId,
+                        principalTable: "Choices",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AnswerDetail_AnswerId",
                 table: "AnswerDetail",
@@ -261,6 +343,21 @@ namespace Exam_System.Migrations
                 name: "IX_Answers_UserId",
                 table: "Answers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AttemptQuestionChoices_AttemptQuestionId",
+                table: "AttemptQuestionChoices",
+                column: "AttemptQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AttemptQuestionChoices_ChoiceId",
+                table: "AttemptQuestionChoices",
+                column: "ChoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AttemptQuestions_questionId",
+                table: "AttemptQuestions",
+                column: "questionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Choices_QuestionId",
@@ -300,6 +397,9 @@ namespace Exam_System.Migrations
                 name: "AnswerDetail");
 
             migrationBuilder.DropTable(
+                name: "AttemptQuestionChoices");
+
+            migrationBuilder.DropTable(
                 name: "UserClaims");
 
             migrationBuilder.DropTable(
@@ -309,10 +409,16 @@ namespace Exam_System.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
+                name: "AttemptQuestions");
+
+            migrationBuilder.DropTable(
                 name: "Choices");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Attempts");
 
             migrationBuilder.DropTable(
                 name: "Questions");
