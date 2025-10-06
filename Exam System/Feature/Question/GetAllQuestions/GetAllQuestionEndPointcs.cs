@@ -1,4 +1,5 @@
-﻿using Exam_System.Shared.Response;
+﻿using Exam_System.Domain.Entities;
+using Exam_System.Shared.Response;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -10,11 +11,11 @@ namespace Exam_System.Feature.Question.GetAllQuestions
     public class QuestionController(IMediator _mediator) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<ResponseResult<GetAllQuestionsResponse>>> GetAll(int ExamId)
+        public async Task<ActionResult<ResponseResult<GetAllQuestionsResponse>>> GetAll([FromQuery] int? examId, [FromQuery] string? questionName)
         {
-            var questions =await _mediator.Send(new GetAllQuestionsQuery(ExamId));      
-
-            return Ok(questions);
+            var result = await _mediator.Send(new GetAllQuestionsQuery(examId, questionName));
+            return Ok(result);
         }
+       
     }
 }

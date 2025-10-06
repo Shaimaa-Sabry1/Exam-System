@@ -6,36 +6,49 @@ using MediatR;
 
 namespace Exam_System.Feature.Question.GetAllQuestions
 {
-    public class GetAllQuestionsQueryHandler(IQuestionRepository _questionRepository , IExamRepository _examRepository) : IRequestHandler<GetAllQuestionsQuery, ResponseResult<GetAllQuestionsResponse>>
+    public class GetAllQuestionsQueryHandler(IQuestionRepository _questionRepository) : IRequestHandler<GetAllQuestionsQuery, ResponseResult<GetAllQuestionsResponse>>
     {
         public async Task<ResponseResult<GetAllQuestionsResponse>> Handle(GetAllQuestionsQuery request, CancellationToken cancellationToken)
         {
-            var exam =await _examRepository.GetByIdAsync(request.ExamId);
-            if (exam == null)
-                return ResponseResult<GetAllQuestionsResponse>.FailResponse($"Not Found This Exam with Id = {request.ExamId}");
-            //throw new ExamNotFoundException(request.ExamId);
+            IEnumerable<Domain.Entities.Question> questions = Enumerable.Empty<Domain.Entities.Question>();
+            int totalCount = 0;
 
-            var (Questions,TotalCount) =await _questionRepository.GetAllAsync(request.ExamId);
-            if (!Questions.Any())
-                return ResponseResult<GetAllQuestionsResponse>.FailResponse($"Not Found Questions!!!");
+            if (request.ExamId.HasValue && request.ExamId.Value > 0)
+            {           
+                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(request.ExamId.Value);
+            }
 
-            var QuestionsDto = Questions.Select(Q => new GettAllQuestionsDto()
+            else if (!string.IsNullOrEmpty(request.QuestionName))
+            {
+                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(request.QuestionName);
+            }
+            else
+            {
+                return ResponseResult<GetAllQuestionsResponse>.FailResponse("Please provide ExamId or QuestionName.");
+            }
+
+            if (!questions.Any())
+                return ResponseResult<GetAllQuestionsResponse>.FailResponse("No questions found.");
+
+            var questionsDto = questions.Select(Q => new GettAllQuestionsDto
             {
                 Title = Q.Title,
                 Type = Q.Type,
-                Choices = Q.Choices.Select(C => new Domain.Entities.ChoiceDto()
+                Choices = Q.Choices.Select(C => new Domain.Entities.ChoiceDto
                 {
                     Text = C.Text,
                     ImageURL = C.ImageURL,
-                    IsCorrect = C.IsCorrect,
+                    IsCorrect = C.IsCorrect
                 }).ToList()
             });
-            var QuestionsResponse = new GetAllQuestionsResponse()
+
+            var response = new GetAllQuestionsResponse
             {
-                Questions = QuestionsDto,
-                TotalCount = TotalCount
+                Questions = questionsDto,
+                TotalCount = totalCount
             };
-            return ResponseResult<GetAllQuestionsResponse>.SuccessResponse(QuestionsResponse,$"Questions Retrieved Successfully");
+
+            return ResponseResult<GetAllQuestionsResponse>.SuccessResponse(response, "Questions retrieved successfully.");
         }
     }
 }

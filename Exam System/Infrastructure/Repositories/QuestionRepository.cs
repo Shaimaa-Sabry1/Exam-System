@@ -1,7 +1,4 @@
-﻿//using Exam_System.Domain.Entities;
-//using Exam_System.Infrastructure.Persistance.Data;
-//using Exam_System.Shared.Interface;
-using Exam_System.Domain.Entities;
+﻿using Exam_System.Domain.Entities;
 using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared.Interface;
@@ -14,14 +11,28 @@ namespace Exam_System.Infrastructure.Repositories
         {
             
         }
-        public async Task<(IEnumerable<Question>, int)> GetAllAsync(int ExamId)
+        public async Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(int ExamId)
         {
             var query = _dbcontext.Set<Question>()
                                    .Where(Q => Q.ExamId == ExamId)
+                                   .Include(Q => Q.Choices)
                                    .AsQueryable();
             var totalCount =await query.CountAsync();
             var Questions = await query.ToListAsync();
             return (Questions, totalCount);
         }
+        public async Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(string QuestionName)
+        {
+            var query = _dbcontext.Set<Question>()
+                                   .Where(Q => Q.Title.ToLower().Contains(QuestionName.ToLower()))
+                                   .Include(Q => Q.Choices)
+                                   .AsQueryable();
+            var totalCount = await query.CountAsync();
+            var Questions = await query.ToListAsync();
+            return (Questions, totalCount);
+        }
+
+
+
     }
 }
