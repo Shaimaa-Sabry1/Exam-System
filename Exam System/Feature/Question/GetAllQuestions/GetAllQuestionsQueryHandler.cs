@@ -4,6 +4,7 @@ using Exam_System.Feature.Question.AddQuestion.Dtos;
 using Exam_System.Feature.Question.GetAllQuestions.Dtos;
 using Exam_System.Shared.Interface;
 using Exam_System.Shared.Response;
+using Exam_System.Shared.Specification;
 using MediatR;
 
 namespace Exam_System.Feature.Question.GetAllQuestions
@@ -17,12 +18,12 @@ namespace Exam_System.Feature.Question.GetAllQuestions
 
             if (request.ExamId.HasValue && request.ExamId.Value > 0)
             {           
-                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(request.ExamId.Value);
+                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(new QuestionsByExamIdSpecification(request.ExamId.Value));
             }
 
             else if (!string.IsNullOrEmpty(request.QuestionName))
             {
-                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(request.QuestionName);
+                (questions, totalCount) = await _questionRepository.GetAllQuestionsAsync(new QuestionsByQuestionNameSpecification(request.QuestionName));
             }
             else
             {

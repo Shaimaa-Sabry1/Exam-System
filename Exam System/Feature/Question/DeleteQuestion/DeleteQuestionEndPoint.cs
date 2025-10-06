@@ -13,8 +13,7 @@ namespace Exam_System.Feature.Question.DeleteQuestion
         public async Task<ActionResult<ResponseResult<bool>>> Delete(int QuestionId)
         {
             var isDeleted = await _mediator.Send(new DeleteQuestionCommand(QuestionId));
-           
-            return Ok(isDeleted);
+            return isDeleted.Success ? Ok(isDeleted) : NotFound(isDeleted);
         }
     }
 }

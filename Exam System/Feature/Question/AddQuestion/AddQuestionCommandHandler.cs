@@ -31,7 +31,7 @@ namespace Exam_System.Feature.Question.AddQuestion
             var IsSaved = await _dbContext.SaveChangesAsync();
 
             //if (IsSaved == 0)
-            //    throw new Exception($"Error While adding Question : {ex.Message}", ex);
+            //    throw new Exception($"Error While adding Question");
 
             var questionDto = new AddQuestionToReturnDto()
             {

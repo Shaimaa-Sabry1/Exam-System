@@ -11,10 +11,10 @@ namespace Exam_System.Feature.Questions.AddQuestions
     public class QuestionController(IAddQuestionOrchestrator _addQuestionOrchestrator) : ControllerBase
     {
         [HttpPost]
-        public async Task<ActionResult<ResponseResult<AddQuestionToReturnDto>>> AddQuestion([FromBody] AddQuestionRequestDto QuestionDto)
+        public async Task<ActionResult<ResponseResult<AddQuestionToReturnDto>>> AddQuestion([FromForm] AddQuestionRequestDto QuestionDto)
         {
             var result = await _addQuestionOrchestrator.AddAsync(QuestionDto.Title, QuestionDto.Type, QuestionDto.ExamId, QuestionDto.Choices);
-            return Ok(result);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
     }
 }
