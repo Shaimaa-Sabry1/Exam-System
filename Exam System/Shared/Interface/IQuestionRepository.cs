@@ -4,10 +4,7 @@ namespace Exam_System.Shared.Interface
 {
     public interface IQuestionRepository : IGenericRepository<Question>
     {
-        //Task<(IEnumerable<Question>, int)> GetAllAsync(int ExamId);
-        //Task<(IEnumerable<Question>, int)> GetAllAsync(string QuestionName);
-        Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(int ExamId);
-        Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(string QuestionName);
-
+        Task<Question> GetQuestionsByIdWithChoicesAsync(int QuestionId);
+        Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(IFilterSpecification<Question> criteria);
     }
 }

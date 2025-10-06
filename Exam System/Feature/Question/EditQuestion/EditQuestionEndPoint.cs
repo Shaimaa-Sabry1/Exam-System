@@ -13,10 +13,10 @@ namespace Exam_System.Feature.Questions.EditQuestion
     public class QuestionController(IMediator _mediator) : ControllerBase
     {
         [HttpPut]
-        public async Task<ActionResult<ResponseResult<EditQuestionToReturnDto>>> EditQuestion([FromBody] EditQuestionRequestDto QuestionDto)
+        public async Task<ActionResult<ResponseResult<EditQuestionToReturnDto>>> EditQuestion([FromForm] EditQuestionRequestDto QuestionDto)
         {
             var result = await _mediator.Send(new EditQuestionCommand(QuestionDto.Id, QuestionDto.Title, QuestionDto.Type, QuestionDto.Choices));
-            return Ok(result);
+            return result.Success? Ok(result) : BadRequest(result);
         }
     }
 }

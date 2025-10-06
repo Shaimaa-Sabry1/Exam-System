@@ -15,7 +15,7 @@ namespace Exam_System.Feature.Questions.EditQuestion
     {
         public async Task<ResponseResult<EditQuestionToReturnDto>> Handle(EditQuestionCommand request, CancellationToken cancellationToken)
         {
-            var Question = await _questionRepository.GetByIdAsync(request.QuestionId);
+            var Question = await _questionRepository.GetQuestionsByIdWithChoicesAsync(request.QuestionId);
             if (Question == null)
                 return ResponseResult<EditQuestionToReturnDto>.FailResponse($"Question with Id = {request.QuestionId} Not Found");
             Question.Title = request.Title;

@@ -3,6 +3,7 @@ using Exam_System.Infrastructure.Persistance.Data;
 using Exam_System.Infrastructure.Repositories;
 using Exam_System.Shared.Interface;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 namespace Exam_System.Infrastructure.Repositories
 {
     public class QuestionRepository : GenaricRepository<Question>, IQuestionRepository
@@ -11,27 +12,25 @@ namespace Exam_System.Infrastructure.Repositories
         {
             
         }
-        public async Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(int ExamId)
+        public async Task<Question> GetQuestionsByIdWithChoicesAsync(int QuestionId)
         {
-            var query = _dbcontext.Set<Question>()
-                                   .Where(Q => Q.ExamId == ExamId)
+            var question =await _dbcontext.Questions
+                                   .Where(Q => Q.Id == QuestionId)
                                    .Include(Q => Q.Choices)
-                                   .AsQueryable();
-            var totalCount =await query.CountAsync();
-            var Questions = await query.ToListAsync();
-            return (Questions, totalCount);
-        }
-        public async Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(string QuestionName)
+                                   .FirstOrDefaultAsync();
+            return question;
+        }  
+     
+        public async Task<(IEnumerable<Question>, int)> GetAllQuestionsAsync(IFilterSpecification<Question> criteria)
         {
-            var query = _dbcontext.Set<Question>()
-                                   .Where(Q => Q.Title.ToLower().Contains(QuestionName.ToLower()))
+            var query = _dbcontext.Questions
+                                   .Where(criteria.Criteria)
                                    .Include(Q => Q.Choices)
                                    .AsQueryable();
             var totalCount = await query.CountAsync();
             var Questions = await query.ToListAsync();
             return (Questions, totalCount);
         }
-
 
 
     }
