@@ -11,14 +11,15 @@ namespace Exam_System.Infrastructure.Persistance
         public ICategoryRepository Categories { get; }
 
         public IExamRepository Exam { get; }
+        public IQuestionRepository Question { get; }
 
-        public UnitOfWork(ExamDbContext context, ICategoryRepository categoryRepository,IExamRepository exam)
+        public UnitOfWork(ExamDbContext context, ICategoryRepository categoryRepository,IExamRepository exam ,IQuestionRepository question)
         {
 
             this._context = context;
             Categories = categoryRepository;
             Exam = exam;
-
+            Question = question;
 
         }
         public Task<int> SaveChangesAsync() => _context.SaveChangesAsync();

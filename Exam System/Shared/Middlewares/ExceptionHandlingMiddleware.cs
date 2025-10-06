@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Exam_System.Domain.Exception;
+using FluentValidation;
 
 namespace Exam_System.Shared.Middlewares
 {
@@ -39,6 +40,30 @@ namespace Exam_System.Shared.Middlewares
                     errors
                 });
             }
+            catch (ExamNotFoundException ex) // other exception
+            {
+                //_logger.LogError(ex, "Unhandled exception");
+
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = ex.Message,
+                });
+            }
+            catch (QuestionNotFoundException ex) // other exception
+            {
+                //_logger.LogError(ex, "Unhandled exception");
+
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                context.Response.ContentType = "application/json";
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = ex.Message,
+                });
+            }
             catch (Exception ex) // other exception
             {
                 //_logger.LogError(ex, "Unhandled exception");
@@ -50,7 +75,7 @@ namespace Exam_System.Shared.Middlewares
                 {
                     message = "Something went wrong. Please try again later."
                 });
-            }
+            }          
         }
     }
 }

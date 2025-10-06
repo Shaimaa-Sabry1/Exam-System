@@ -4,6 +4,7 @@ using Exam_System.Infrastructure.Persistance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exam_System.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    partial class ExamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251006173239_CreateEnumQuestionType&EditTypeInQuestionEntity")]
+    partial class CreateEnumQuestionTypeEditTypeInQuestionEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,6 +116,7 @@ namespace Exam_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImageURL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCorrect")

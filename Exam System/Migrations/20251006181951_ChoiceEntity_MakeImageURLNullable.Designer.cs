@@ -4,6 +4,7 @@ using Exam_System.Infrastructure.Persistance.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Exam_System.Migrations
 {
     [DbContext(typeof(ExamDbContext))]
-    partial class ExamDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251006181951_ChoiceEntity_MakeImageURLNullable")]
+    partial class ChoiceEntity_MakeImageURLNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

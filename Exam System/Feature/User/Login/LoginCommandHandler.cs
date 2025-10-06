@@ -25,6 +25,7 @@ namespace Exam_System.Feature.User.Login
             if (user == null) return null;
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                 return null;
+
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),

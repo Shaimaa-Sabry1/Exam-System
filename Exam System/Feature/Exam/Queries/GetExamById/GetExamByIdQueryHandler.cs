@@ -3,12 +3,14 @@ using Exam_System.Domain.Exception;
 using Exam_System.Shared.Interface;
 using MediatR;
 
+
 namespace Exam_System.Feature.Exam.Queries.GetExamById
 {
     public class GetExamByIdQueryHandler : IRequestHandler<GetExamByIdQuery, Domain.Entities.Exam>
     {
-       
+
         private readonly IUnitOfWork _unitOfWork;
+
 
         public GetExamByIdQueryHandler(IUnitOfWork unitOfWork)
         {
