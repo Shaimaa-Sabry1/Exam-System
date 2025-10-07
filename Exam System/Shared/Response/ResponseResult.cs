@@ -5,6 +5,7 @@
         public bool Success { get; set; }
         public string? Message { get; set; }
         public T? Data { get; set; }
+        public bool IsSuccess { get; internal set; }
 
         public static ResponseResult<T> SuccessResponse(T data, string? message = null)
         {

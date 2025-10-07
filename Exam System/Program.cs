@@ -20,6 +20,7 @@ using FluentValidation; // Add this using directive at the top of the file
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
 
 
 
@@ -38,6 +39,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ExamDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
  );
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "redis-18828.c16.us-east-1-3.ec2.redns.redis-cloud.com:18828,password=sKd8WfR2OctEuTiPXH5iqeQjS75xFlkl";
+    options.InstanceName = "ExamSystem_";
+}); 
+
+
 builder.Services.AddScoped(typeof(GenaricRepository<>));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenaricRepository<>));
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -56,7 +64,8 @@ builder.Services.Configure<EmailSettings>(
 
 builder.Services.AddTransient<EmailVerificationService>();
 builder.Services.AddMemoryCache();
-
+// Program.cs
+builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddMediatR(typeof(Program).Assembly);
 

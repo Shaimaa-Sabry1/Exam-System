@@ -53,7 +53,7 @@ namespace Exam_System.Shared.Middlewares
                 });
             }
             catch (QuestionNotFoundException ex) // other exception
-            {
+            { 
                 //_logger.LogError(ex, "Unhandled exception");
 
                 context.Response.StatusCode = StatusCodes.Status404NotFound;

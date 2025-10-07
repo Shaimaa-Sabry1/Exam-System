@@ -40,7 +40,7 @@ namespace Exam_System.Feature.Question.GetAllQuestions
                 Choices = Q.Choices.Select(C => new ChoiceToReturnDto
                 {
                     Text = C.Text,
-                    ImageURL = C.ImageURL,
+                   // ImageURL = C.ImageURL,
                     IsCorrect = C.IsCorrect
                 }).ToList()
             }).ToList();

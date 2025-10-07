@@ -40,6 +40,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.21" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
@@ -47,6 +48,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Feature\StartExam\Delete attembt\Dto\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\exam-icons\" />
     <Folder Include="wwwroot\Question-images\" />
   </ItemGroup>

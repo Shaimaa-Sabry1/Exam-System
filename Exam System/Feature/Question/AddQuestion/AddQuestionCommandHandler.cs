@@ -13,10 +13,10 @@ namespace Exam_System.Feature.Question.AddQuestion
     {
         public async Task<AddQuestionToReturnDto> Handle(AddQuestionCommand request, CancellationToken cancellationToken)
         {
-            var choices =await Task.WhenAll( request.Choices.Select(async c => new Choice
+            var choices = await Task.WhenAll(request.Choices.Select(async c => new Choice
             {
                 Text = c.Text,
-                ImageURL =c.Image != null? $"{_configuration["BaseUrl"]}/{await _imageHelper.UploadImageAsync(c.Image, "Question-images")}" : null, 
+               // ImageURL = c.Image != null ? $"{_configuration["BaseUrl"]}/{await _imageHelper.UploadImageAsync(c.Image, "Question-images")}" : null,
                 IsCorrect = c.IsCorrect,
             }));
 
@@ -42,7 +42,7 @@ namespace Exam_System.Feature.Question.AddQuestion
                 Choices = question.Choices.Select(c => new ChoiceToReturnDto
                 {
                     Text = c.Text,
-                    ImageURL = c.ImageURL,
+                   // ImageURL = c.ImageURL,
                     IsCorrect = c.IsCorrect
                 }).ToList()
             };

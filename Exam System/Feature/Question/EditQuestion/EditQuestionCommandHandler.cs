@@ -28,7 +28,7 @@ namespace Exam_System.Feature.Questions.EditQuestion
                     Question.Choices.Add(new Choice()
                     {
                         Text = choice.Text,
-                        ImageURL = choice.Image != null ? $"{_configuration["BaseUrl"]}/{await _imageHelper.UploadImageAsync(choice.Image, "Question-images")}":null,
+                       // ImageURL = choice.Image != null ? $"{_configuration["BaseUrl"]}/{await _imageHelper.UploadImageAsync(choice.Image, "Question-images")}":null,
                         IsCorrect = choice.IsCorrect,
                         QuestionId = Question.Id,
                     });
@@ -48,7 +48,7 @@ namespace Exam_System.Feature.Questions.EditQuestion
                 Choices = Question.Choices.Select(c => new ChoiceToReturnDto()
                 {
                     Text = c.Text,
-                    ImageURL = c.ImageURL,
+                   // ImageURL = c.ImageURL,
                     IsCorrect = c.IsCorrect,
 
                 }).ToList()

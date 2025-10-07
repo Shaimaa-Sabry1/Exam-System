@@ -2,8 +2,9 @@
 {
     public class ChoiceDto
     {
+        public int Id { get; set; }
         public string Text { get; set; } = string.Empty;
-        public IFormFile? Image { get; set; }
+        //public IFormFile? Image { get; set; }
         public bool IsCorrect { get; set; }
     }
 }

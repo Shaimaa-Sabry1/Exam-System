@@ -3,7 +3,7 @@
     public class ChoiceToReturnDto
     {
         public string Text { get; set; } = string.Empty;
-        public string ImageURL { get; set; } = string.Empty ;
+       // public string ImageURL { get; set; } = string.Empty ;
         public bool IsCorrect { get; set; }
     }
 }

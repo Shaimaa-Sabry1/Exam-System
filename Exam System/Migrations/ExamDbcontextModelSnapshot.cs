@@ -30,9 +30,6 @@ namespace Exam_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ExamId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
@@ -42,11 +39,15 @@ namespace Exam_System.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("attembtId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ExamId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("attembtId")
+                        .IsUnique();
 
                     b.ToTable("Answers");
                 });
@@ -62,88 +63,23 @@ namespace Exam_System.Migrations
                     b.Property<int>("AnswerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ChoiceId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SelectedChoiceIds")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AnswerId");
 
-                    b.HasIndex("ChoiceId");
-
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("AnswerDetail");
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.AttemptQuestion", b =>
-                {
-                    b.Property<int>("attemptQuestionId")
-                        .HasColumnType("int");
-
-                    b.PrimitiveCollection<string>("ChoiceOrder")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChoiceOrderJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("SelectedChoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("order")
-                        .HasColumnType("int");
-
-                    b.Property<int>("questionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("startExamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("attemptQuestionId");
-
-                    b.HasIndex("questionId");
-
-                    b.ToTable("AttemptQuestions", (string)null);
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.AttemptQuestionChoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttemptQuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsSelected")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttemptQuestionId");
-
-                    b.HasIndex("ChoiceId");
-
-                    b.ToTable("AttemptQuestionChoices", (string)null);
+                    b.ToTable("AnswerDetails", (string)null);
                 });
 
             modelBuilder.Entity("Exam_System.Domain.Entities.Category", b =>
@@ -178,9 +114,6 @@ namespace Exam_System.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageURL")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
@@ -285,37 +218,6 @@ namespace Exam_System.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Exam_System.Domain.Entities.StartExam", b =>
-                {
-                    b.Property<int>("attemptId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DurationTakenMinutes")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("endTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("examId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("score")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
-
-                    b.Property<DateTime>("startTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("userId")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
-
-                    b.HasKey("attemptId");
-
-                    b.ToTable("Attempts", (string)null);
-                });
-
             modelBuilder.Entity("Exam_System.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -415,21 +317,52 @@ namespace Exam_System.Migrations
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("Exam_System.Domain.Entities.attembt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsSubmitted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("startTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("UserId", "ExamId");
+
+                    b.ToTable("Attempts", (string)null);
+                });
+
             modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
                 {
-                    b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
-                        .WithMany("Answers")
-                        .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Exam_System.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Exam");
+                    b.HasOne("Exam_System.Domain.Entities.attembt", "Attembt")
+                        .WithOne("Answer")
+                        .HasForeignKey("Exam_System.Domain.Entities.Answer", "attembtId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Attembt");
 
                     b.Navigation("User");
                 });
@@ -442,12 +375,6 @@ namespace Exam_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Exam_System.Domain.Entities.Choice", "Choice")
-                        .WithMany()
-                        .HasForeignKey("ChoiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Exam_System.Domain.Entities.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
@@ -456,47 +383,7 @@ namespace Exam_System.Migrations
 
                     b.Navigation("Answer");
 
-                    b.Navigation("Choice");
-
                     b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.AttemptQuestion", b =>
-                {
-                    b.HasOne("Exam_System.Domain.Entities.StartExam", "startExam")
-                        .WithMany("AttemptQuestions")
-                        .HasForeignKey("attemptQuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Exam_System.Domain.Entities.Question", "question")
-                        .WithMany()
-                        .HasForeignKey("questionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("question");
-
-                    b.Navigation("startExam");
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.AttemptQuestionChoice", b =>
-                {
-                    b.HasOne("Exam_System.Domain.Entities.AttemptQuestion", "AttemptQuestion")
-                        .WithMany("AttemptQuestionChoices")
-                        .HasForeignKey("AttemptQuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Exam_System.Domain.Entities.Choice", "Choice")
-                        .WithMany()
-                        .HasForeignKey("ChoiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("AttemptQuestion");
-
-                    b.Navigation("Choice");
                 });
 
             modelBuilder.Entity("Exam_System.Domain.Entities.Choice", b =>
@@ -526,17 +413,6 @@ namespace Exam_System.Migrations
                     b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
                         .WithMany("Questions")
                         .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Exam");
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.StartExam", b =>
-                {
-                    b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
-                        .WithMany("Attempts")
-                        .HasForeignKey("attemptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -576,14 +452,20 @@ namespace Exam_System.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Exam_System.Domain.Entities.attembt", b =>
+                {
+                    b.HasOne("Exam_System.Domain.Entities.Exam", "Exam")
+                        .WithMany()
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
+                });
+
             modelBuilder.Entity("Exam_System.Domain.Entities.Answer", b =>
                 {
                     b.Navigation("Details");
-                });
-
-            modelBuilder.Entity("Exam_System.Domain.Entities.AttemptQuestion", b =>
-                {
-                    b.Navigation("AttemptQuestionChoices");
                 });
 
             modelBuilder.Entity("Exam_System.Domain.Entities.Category", b =>
@@ -593,10 +475,6 @@ namespace Exam_System.Migrations
 
             modelBuilder.Entity("Exam_System.Domain.Entities.Exam", b =>
                 {
-                    b.Navigation("Answers");
-
-                    b.Navigation("Attempts");
-
                     b.Navigation("Questions");
                 });
 
@@ -605,14 +483,15 @@ namespace Exam_System.Migrations
                     b.Navigation("Choices");
                 });
 
-            modelBuilder.Entity("Exam_System.Domain.Entities.StartExam", b =>
-                {
-                    b.Navigation("AttemptQuestions");
-                });
-
             modelBuilder.Entity("Exam_System.Domain.Entities.User", b =>
                 {
                     b.Navigation("Claims");
+                });
+
+            modelBuilder.Entity("Exam_System.Domain.Entities.attembt", b =>
+                {
+                    b.Navigation("Answer")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

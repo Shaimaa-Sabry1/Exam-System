@@ -13,13 +13,12 @@ namespace Exam_System.Infrastructure.Persistance.Configration
             builder.Property(a => a.Score)
                    .IsRequired();
 
-            // 1 Answer -> Many AnswerDetails
-            builder.HasMany(a => a.Details)
-                   .WithOne(d => d.Answer)
-                   .HasForeignKey(d => d.AnswerId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            // 1 Answer -> 1 Attempt
+            builder.HasOne(a => a.Attembt)
+                   .WithOne(attempt => attempt.Answer)
+                   .HasForeignKey<Answer>(a => a.attembtId)
+                   .OnDelete(DeleteBehavior.NoAction); 
+
         }
     }
-    
-    
 }

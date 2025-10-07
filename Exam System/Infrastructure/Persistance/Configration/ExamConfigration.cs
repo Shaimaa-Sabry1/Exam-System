@@ -11,10 +11,7 @@ namespace Exam_System.Infrastructure.Persistance.Configration
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Title).IsRequired().HasMaxLength(200);
             builder.Property(e => e.DurationInMinutes).IsRequired();
-            builder.HasMany(e => e.Answers)
-                   .WithOne(a => a.Exam)
-                   .HasForeignKey(e=>e.ExamId)
-                   .OnDelete(DeleteBehavior.Cascade);
+            
             builder.HasMany(e => e.Questions)
                 .WithOne(q => q.Exam)
                 .HasForeignKey(e => e.ExamId);

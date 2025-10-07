@@ -15,9 +15,9 @@ namespace Exam_System.Feature.Questions.AddQuestions
             RuleFor(x => x.Type)
                 .NotEmpty().WithMessage("Please select a question type");
 
-            RuleFor(x => x.Choices)
-                .Must(c => c.Any(choice => choice.IsCorrect))
-                .WithMessage("At least one correct answer is required");
+            //RuleFor(x => x.Choices)
+            //    .Must(c => c.Any(choice => choice.IsCorrect))
+            //    .WithMessage("At least one correct answer is required");
         }
     }
 }
