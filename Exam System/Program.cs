@@ -1,4 +1,4 @@
-//using Exam_System.Feature.Exams.Commands.Validations;
+﻿//using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exam.UpdateExam;
 using Exam_System.Feature.Exams.Commands.Validations;
 using Exam_System.Feature.Exams.Commands.Validations;
@@ -17,6 +17,7 @@ using FluentValidation; // Add this using directive at the top of the file
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.OpenApi.Models;
 
 
 
@@ -28,6 +29,41 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().ConfigureApiBehaviorOptions(
     option => option.SuppressModelStateInvalidFilter = true
 );
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Exam System API",
+        Version = "v1",
+        Description = "API documentation for Exam System"
+    });
+
+    // 🔒 Add JWT bearer configuration
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter your JWT token: Bearer {token}",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -59,7 +95,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
- 
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
